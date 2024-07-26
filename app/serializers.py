@@ -4,18 +4,12 @@ from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.models import User
 
 class RegisterSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(required=False, validators=[UniqueValidator(queryset=User.objects.all())])
-    password = serializers.CharField(validators=[validate_password])
-    password2 = serializers.CharField()
+    email = serializers.EmailField(required=True, validators=[UniqueValidator(queryset=User.objects.all())])
+    password = serializers.CharField(validators=[validate_password], required=True)
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'password2', 'email')
-
-    def validate(self, attrs):
-        if attrs['password'] != attrs['password2']:
-            raise serializers.ValidationError({'password': 'Пароли не совпадают!'})
-        return attrs
+        fields = ('username', 'password', 'email')
     
     def create(self, validated_data):
         user = User.objects.create(
@@ -30,3 +24,6 @@ class RegisterSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField()
+
+    class Meta:
+        fields = ('username', 'password')

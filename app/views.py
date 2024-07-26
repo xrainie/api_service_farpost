@@ -11,11 +11,12 @@ class RegisterView(generics.CreateAPIView):
 
 
 class LoginView(APIView):
+    serializer_class = LoginSerializer
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = authenticate(username=serializer.data['username'], password=serializer.data['password'])
-        if User is not None:
+        if user is not None:
             login(request, user)
             return Response({'status': 'ok'})
         return Response({"error": "Неверные данные"}, status=status.HTTP_401_UNAUTHORIZED)
