@@ -33,4 +33,4 @@ class LoginSerializer(serializers.Serializer):
 class PromoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Promo
-        fields = ('title', 'promo_id', 'author', 'position')
+        fields = ('title', 'author', 'views')
