@@ -2,7 +2,7 @@ from urllib.parse import urljoin
 import requests
 import bs4
 
-BASE_URL = 'https://www.farpost.ru/'
+BASE_URL = 'https://www.farpost.ru'
 
 class PromoData():
     def __init__(self) -> None:
