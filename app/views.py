@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import RegisterSerializer, LoginSerializer
+from .serializers import RegisterSerializer, LoginSerializer, PromoSerializer
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -20,3 +20,12 @@ class LoginView(APIView):
             login(request, user)
             return Response({'status': 'ok'})
         return Response({"error": "Неверные данные"}, status=status.HTTP_401_UNAUTHORIZED)
+    
+class MainView(APIView):
+    
+    def get(self, request):
+        serializer = PromoSerializer
+        # получаем инфо с ресурса
+
+        serializer.is_valid()
+        

@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.models import User
+from .models import Promo
 
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True, validators=[UniqueValidator(queryset=User.objects.all())])
@@ -27,3 +28,9 @@ class LoginSerializer(serializers.Serializer):
 
     class Meta:
         fields = ('username', 'password')
+
+
+class PromoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Promo
+        fields = ('title', 'promo_id', 'author', 'position')
